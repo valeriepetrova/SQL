@@ -1,0 +1,111 @@
+Найдите номер модели, скорость и размер жесткого диска для всех ПК стоимостью менее 500 дол. Вывести: model, speed и hd
+
+SELECT model,speed,hd
+FROM pc
+WHERE price <500
+_______________________________
+
+Найдите производителей принтеров. Вывести: maker
+
+
+SELECT distinct maker 
+FROM product 
+WHERE type = 'printer'
+________________________________
+
+Найдите номер модели, объем памяти и размеры экранов ПК-блокнотов, цена которых превышает 1000 дол.
+
+SELECT model,ram,screen FROM laptop
+WHERE price >1000
+________________________________
+
+Найдите все записи таблицы Printer для цветных принтеров.
+
+
+SELECT code, model, color, type, price
+FROM printer
+WHERE color= 'y'
+
+_________________________________
+Найдите номер модели, скорость и размер жесткого диска ПК, имеющих 12x или 24x CD и цену менее 600 дол.
+
+Select model,speed,hd
+From pc
+where (cd='12x'or cd='24x') 
+And price<600
+
+_________________________________
+
+Найдите номера моделей и цены всех имеющихся в продаже продуктов (любого типа) производителя B (латинская буква).
+
+Select model,price
+from PC 
+where model in(select model from Product where maker='B')
+Union
+Select model, price
+from Laptop where model in(select model from Product where maker='B')
+Union
+Select model, price 
+from Printer where model in(select model from Product where maker='B')
+
+__________________________________
+
+
+
+Найдите производителя, выпускающего ПК, но не ПК-блокноты.
+
+SELECT DISTINCT maker FROM product
+WHERE type ='pc'
+except
+select DISTINCT maker from product
+where type = 'laptop'
+
+____________________________________
+
+
+Найдите производителей ПК с процессором не менее 450 Мгц. Вывести: Maker
+
+SELECT DISTINCT product.maker
+FROM pc
+INNER JOIN product ON pc.model=product.model
+WHERE pc.speed >=450
+
+____________________________________
+
+
+Найдите модели принтеров, имеющих самую высокую цену. Вывести: model, price
+
+SELECT model, price
+From printer
+Where price= 
+(SELECT MAX(price) from printer)
+
+_____________________________________
+
+Найдите среднюю скорость ПК.
+
+SELECT AVG(speed)
+From pc
+
+_____________________________________
+
+Найдите среднюю скорость ПК-блокнотов, цена которых превышает 1000 дол.
+
+
+SELECT AVG(speed)
+FROM laptop
+WHERE price>1000
+
+______________________________________
+
+Найдите среднюю скорость ПК, выпущенных производителем A.
+
+SELECT AVG(SPEED)
+FROM pc
+WHERE model IN (SELECT model
+ FROM Product
+ WHERE maker = 'A')
+_____________________
+ Задачи с сайта sql-ex
+
+
